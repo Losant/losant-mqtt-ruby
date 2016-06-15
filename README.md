@@ -106,7 +106,7 @@ subsequently lost and this flag is true, the client will try to automatically
 reconnect (except in the case of authentication errors, which will
 still be raised).
 
-##### Example
+###### Example
 
 ```ruby
 device = LosantMqtt::Device.new(key: "my-app-access-key",
@@ -158,13 +158,13 @@ The state to send as a hash.
 *   time  
 When the state occured - if nil or not set, will default to now.
 
-##### Example
+###### Example
 
 ```ruby
 device.send_state({ voltage: read_analog_in() })
 ```
 
-#### on (or add_listener)
+#### on
 
 ```ruby
 on(event, proc=nil, &block)
@@ -172,20 +172,20 @@ on(event, proc=nil, &block)
 
 Adds an observer to listen for an event on this device.
 
-*   event
+*   event  
 The event name to listen for.  Possible events are: `:connect` (the device
 has connected), `:reconnect` (the device lost its connection and reconnected),
 `:close` (the device's connection was closed), and
 `:command` (the device has received a command from Losant).
 
-*   proc / &block
+*   proc / &block  
 The proc or block to call with the given event fires.  The first
 argument for all callbacks will be the device instance.  For `:close` callbacks,
 there can be a second argument which is the reason for the closing of the
 connection, and for `:command` callbacks the second argument is the command
 received.
 
-##### Example
+###### Example
 
 ```ruby
 device.on(:command) do |command|
@@ -207,10 +207,10 @@ remove_listener(event, proc)
 
 Removes an observer from listening for an event on this device.
 
-*   event
+*   event  
 The event name to stop listening for.  Same events as [on](#on).
 
-*   proc
+*   proc  
 The proc that should be removed.
 
 <br/>
