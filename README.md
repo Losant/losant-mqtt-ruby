@@ -36,13 +36,28 @@ EventMachine.run do
   EventMachine::PeriodicTimer.new(10.0) do
     temp = call_out_to_your_sensor_here()
     device.send_state({ temperature: temp })
+    puts "#{device.device_id}: Sent state"
   end
 
-  device.on(:command) do |device, command|
-    puts "Command received."
+  device.on(:command) do |d, command|
+    puts "#{d.device_id}: Command received."
     puts command["name"]
     puts command["payload"]
   end
+
+  device.on(:connect) do |d|
+    puts "#{d.device_id}: Connected"
+  end
+
+  device.on(:reconnect) do |d|
+    puts "#{d.device_id}: Reconnected"
+  end
+
+  device.on(:close) do |d, reason|
+    puts "#{d.device_id}: Lost connection (#{reason})"
+  end
+
+  device.connect
 end
 ```
 

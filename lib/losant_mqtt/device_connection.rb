@@ -48,9 +48,10 @@ module LosantMqtt
 
     def disconnect(send_msg: true)
       return if @state == :disconnecting || @state == :disconnected
+      packet = connected? && send_msg && MQTT::Packet::Disconnect.new
       @state = :disconnecting
       emit(@state)
-      send_packet(MQTT::Packet::Disconnect.new) if connected? && send_msg
+      packet ? send_packet(packet) : close_connection
     end
 
     def send_connect_packet
@@ -123,13 +124,18 @@ module LosantMqtt
     end
 
     def unbind(msg)
-      @timer.cancel if @timer
+      if @timer
+        @timer.cancel
+        @timer = nil
+      end
+
       unless @state == :disconnecting
         @ex ||= $! || MQTT::NotConnectedException.new("Connection to server lost")
       end
 
       @state = :disconnected
       emit(@state, @ex)
+      @ex = nil
     end
 
     def receive_data(data)
@@ -155,6 +161,7 @@ module LosantMqtt
       @packet_id     = 0
       @packet        = nil
       @data          = ""
+      @ex            = nil
       emit(@state)
     end
 

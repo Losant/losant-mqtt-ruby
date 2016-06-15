@@ -1,12 +1,10 @@
 #!/usr/bin/env rake
 require "bundler/gem_tasks"
-require "rake/testtask"
 
-desc "Default: run unit tests."
-task :default => :test
+require "bundler/gem_tasks"
+require "rspec/core/rake_task"
 
-Rake::TestTask.new(:test) do |t|
-  t.libs << "test"
-  t.pattern = 'test/**/*_test.rb'
-  t.verbose = true
-end
+RSpec::Core::RakeTask.new(:spec)
+
+task :default => :spec
+task :test => :spec

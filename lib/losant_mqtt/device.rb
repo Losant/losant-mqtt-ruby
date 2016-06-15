@@ -2,7 +2,7 @@ module LosantMqtt
   class Device
     include Events::Emitter
 
-    attr_reader :device_id, :key, :secret, :secure
+    attr_reader :device_id, :key, :secret, :secure, :should_retry
 
     def initialize(options = {})
       @was_connected = false
@@ -12,15 +12,15 @@ module LosantMqtt
       @secret        = options[:secret].to_s
       @secure        = options.has_key?(:secure) ? !!options[:secure] : true
       @should_retry  = options.has_key?(:retry_lost_connection) ?
-        options[:retry_lost_connection] : true
+        !!options[:retry_lost_connection] : true
 
-      raise new ArgumentError("Invalid Device Id") unless @device_id =~ /^[A-Fa-f\d]{24}$/
-      raise new ArgumentError("Invalid Key") if @key == ""
-      raise new ArgumentError("Invalid Secret") if @secret == ""
+      raise ArgumentError.new("Invalid Device Id") if @device_id == ""
+      raise ArgumentError.new("Invalid Key") if @key == ""
+      raise ArgumentError.new("Invalid Secret") if @secret == ""
     end
 
     def connected?
-      @connection && @connection.connected?
+      !!(@connection && @connection.connected?)
     end
 
     def connect
@@ -37,7 +37,7 @@ module LosantMqtt
       rescue Exception => ex
         if @was_connected && @should_retry
           @connection = nil
-          emit(:closed, self, ex)
+          emit(:close, self, ex)
           retry_lost_connection
           return self
         else
@@ -63,7 +63,7 @@ module LosantMqtt
 
       @connection.on(:connected) do
         if(@state_backlog)
-          @connection.publish(state_topic, @state_backlog)
+          @connection.publish(state_topic, @state_backlog.to_json)
           @state_backlog = nil
         end
 
@@ -105,10 +105,10 @@ module LosantMqtt
       time = time * 1000 if time < 1000000000000 # convert to ms since epoch
       time = time.round
 
-      payload = { time: time, data: state }.to_json
+      payload = { time: time, data: state }
 
       if connected?
-        @connection.publish(state_topic, payload)
+        @connection.publish(state_topic, payload.to_json)
       else
         (@state_backlog ||= []).push(payload)
       end
