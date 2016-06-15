@@ -38,7 +38,7 @@ EventMachine.run do
     device.send_state({ temperature: temp })
   end
 
-  device.on(:command) do |command|
+  device.on(:command) do |device, command|
     puts "Command received."
     puts command["name"]
     puts command["payload"]
@@ -101,10 +101,11 @@ If the client should connect to Losant over SSL - default is true.
 
 *   retry_lost_connection  
 If the client should retry lost connections - default is true.  Errors on
-initial connect will still be raised, but if the connection is then
+initial connect will still be raised, but if a good connection is
 subsequently lost and this flag is true, the client will try to automatically
-reconnect (except in the case of authentication errors, which will
-still be raised).
+reconnect and will not raise errors (except in the case of authentication
+errors, which will still be raised). When this flag is true, disconnection
+and reconnection can be monitored using the `:close` and `:reconnect` events.
 
 ###### Example
 
@@ -119,7 +120,7 @@ device = LosantMqtt::Device.new(key: "my-app-access-key",
 connect()
 ```
 
-Connects the device to the Losant platform. Hook the connect event to know when
+Connects the device to the Losant platform. Hook the `:connect` event to know when
 a connection has been successfully established.  Returns the device instance
 to allow chaining.
 
@@ -188,7 +189,7 @@ received.
 ###### Example
 
 ```ruby
-device.on(:command) do |command|
+device.on(:command) do |device, command|
   puts "Command received."
   puts command["name"]
   puts command["payload"]
