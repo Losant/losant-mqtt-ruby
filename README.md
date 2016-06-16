@@ -1,6 +1,6 @@
 # Losant Ruby MQTT Client
 
-[![Build Status](https://travis-ci.org/Losant/losant-mqtt-ruby.svg?branch=master)](https://travis-ci.org/Losant/losant-mqtt-ruby)
+[![Build Status](https://travis-ci.org/Losant/losant-mqtt-ruby.svg?branch=master)](https://travis-ci.org/Losant/losant-mqtt-ruby) [![Gem Version](https://badge.fury.io/rb/losant_mqtt.svg)](https://badge.fury.io/rb/losant_mqtt)
 
 The [Losant](https://www.losant.com) MQTT client provides a simple way for
 custom things to communicate with the Losant platform over MQTT.  You can
