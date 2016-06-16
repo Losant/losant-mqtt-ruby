@@ -30,35 +30,43 @@ the value of a temperature sensor to the Losant platform.
 require "losant_mqtt"
 
 EventMachine.run do
-  device = LosantMqtt::Device.new(
-    key: "my-app-access-key",
-    secret: "my-app-access-secret",
-    device_id: "my-device-id")
 
+  # Construct device
+  device = LosantMqtt::Device.new(
+    device_id: "my-device-id",
+    key: "my-app-access-key",
+    secret: "my-app-access-secret")
+
+  # Send temperature once every ten seconds.
   EventMachine::PeriodicTimer.new(10.0) do
     temp = call_out_to_your_sensor_here()
     device.send_state({ temperature: temp })
     puts "#{device.device_id}: Sent state"
   end
 
+  # Listen for commands.
   device.on(:command) do |d, command|
     puts "#{d.device_id}: Command received."
     puts command["name"]
     puts command["payload"]
   end
 
+  # Listen for connection event
   device.on(:connect) do |d|
     puts "#{d.device_id}: Connected"
   end
 
+  # Listen for reconnection event
   device.on(:reconnect) do |d|
     puts "#{d.device_id}: Reconnected"
   end
 
+  # Listen for disconnection event
   device.on(:close) do |d, reason|
     puts "#{d.device_id}: Lost connection (#{reason})"
   end
 
+  # Connect to Losant.
   device.connect
 end
 ```
@@ -127,8 +135,8 @@ and reconnection can be monitored using the `:close` and `:reconnect` events.
 ###### Example
 
 ```ruby
-device = LosantMqtt::Device.new(key: "my-app-access-key",
-  secret: "my-app-access-secret", device_id: "my-device-id")
+device = LosantMqtt::Device.new(device_id: "my-device-id",
+  key: "my-app-access-key", secret: "my-app-access-secret")
 ```
 
 #### connect
