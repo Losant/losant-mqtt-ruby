@@ -243,6 +243,6 @@ The proc that should be removed.
 
 *****
 
-Copyright (c) 2016 Losant IoT, Inc
+Copyright (c) 2017 Losant IoT, Inc
 
 <https://www.losant.com>
