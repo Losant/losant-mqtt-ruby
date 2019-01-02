@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Losant/losant-mqtt-ruby.svg?branch=master)](https://travis-ci.org/Losant/losant-mqtt-ruby) [![Gem Version](https://badge.fury.io/rb/losant_mqtt.svg)](https://badge.fury.io/rb/losant_mqtt)
 
 The [Losant](https://www.losant.com) MQTT client provides a simple way for
-custom things to communicate with the Losant platform over MQTT.  You can
+custom things to communicate with the Losant platform over MQTT. You can
 authenticate as a device, publish device state, and listen for device commands.
 
 This client works with Ruby 2.1 and higher, and it depends on [Event Machine](https://github.com/eventmachine/eventmachine) to provide
@@ -75,15 +75,15 @@ end
 
 ## API Documentation
 
-*   [Device](#device)
-    *   [initializer](#initializer)
-    *   [connect](#connect)
-    *   [connected?](#connected)
-    *   [close](#close)
-    *   [send_state](#send_state)
-    *   [on](#on)
-    *   [add_listener](#add_listener)
-    *   [remove_listener](#remove_listener)
+* [Device](#device)
+  * [initializer](#initializer)
+  * [connect](#connect)
+  * [connected?](#connected)
+  * [close](#close)
+  * [send_state](#send_state)
+  * [on](#on)
+  * [add_listener](#add_listener)
+  * [remove_listener](#remove_listener)
 
 ### Device
 
@@ -111,28 +111,22 @@ LosantMqtt::Device.new(device_id:, key:, secret:, secure: true, retry_lost_conne
 
 The ``Client()`` initializer takes the following arguments:
 
-*   device_id  
-The device's ID. Obtained by first registering a device using
-the Losant platform.
+* device_id  
+  The device's ID. Obtained by first registering a device using the Losant platform.
 
-*   key  
-The Losant access key.
+* key  
+  The Losant access key.
 
-*   secret  
-The Losant access secret.
+* secret  
+  The Losant access secret.
 
-*   secure  
-If the client should connect to Losant over SSL - default is true.
+* secure  
+  If the client should connect to Losant over SSL - default is true.
 
-*   retry_lost_connection  
-If the client should retry lost connections - default is true.  Errors on
-initial connect will still be raised, but if a good connection is
-subsequently lost and this flag is true, the client will try to automatically
-reconnect and will not raise errors (except in the case of authentication
-errors, which will still be raised). When this flag is true, disconnection
-and reconnection can be monitored using the `:close` and `:reconnect` events.
+* retry_lost_connection  
+  If the client should retry lost connections - default is true. Errors on initial connect will still be raised, but if a good connection is subsequently lost and this flag is true, the client will try to automatically reconnect and will not raise errors (except in the case of authentication errors, which will still be raised). When this flag is true, disconnection and reconnection can be monitored using the `:close` and `:reconnect` events.
 
-###### Example
+##### Initializer Example
 
 ```ruby
 device = LosantMqtt::Device.new(device_id: "my-device-id",
@@ -178,13 +172,13 @@ coordinates once a second or more. Because of this, sendState is typically
 the most invoked function. Any state data sent to Losant is stored and made
 available in data visualization tools and workflow triggers.
 
-*   state  
-The state to send as a hash.
+* state  
+  The state to send as a hash.
 
-*   time  
-When the state occured - if nil or not set, will default to now.
+* time  
+  When the state occurred - if nil or not set, will default to now.
 
-###### Example
+##### Send State Example
 
 ```ruby
 device.send_state({ voltage: read_analog_in() })
@@ -198,20 +192,14 @@ on(event, proc=nil, &block)
 
 Adds an observer to listen for an event on this device.
 
-*   event  
-The event name to listen for.  Possible events are: `:connect` (the device
-has connected), `:reconnect` (the device lost its connection and reconnected),
-`:close` (the device's connection was closed), and
-`:command` (the device has received a command from Losant).
+* event  
+  The event name to listen for. Possible events are: `:connect` (the device has connected), `:reconnect` (the device lost its connection and reconnected), `:close` (the device's connection was closed), and `:command` (the device has received a command from Losant).
 
-*   proc / &block  
-The proc or block to call with the given event fires.  The first
-argument for all callbacks will be the device instance.  For `:close` callbacks,
-there can be a second argument which is the reason for the closing of the
-connection, and for `:command` callbacks the second argument is the command
+* proc / &block  
+  The proc or block to call with the given event fires. The first argument for all callbacks will be the device instance. For `:close` callbacks, there can be a second argument which is the reason for the closing of the connection, and for `:command` callbacks the second argument is the command
 received.
 
-###### Example
+##### On Command Example
 
 ```ruby
 device.on(:command) do |device, command|
@@ -233,16 +221,16 @@ remove_listener(event, proc)
 
 Removes an observer from listening for an event on this device.
 
-*   event  
-The event name to stop listening for.  Same events as [on](#on).
+* event  
+  The event name to stop listening for. Same events as [on](#on).
 
-*   proc  
-The proc that should be removed.
+* proc  
+  The proc that should be removed.
 
 <br/>
 
 *****
 
-Copyright (c) 2017 Losant IoT, Inc
+Copyright (c) 2019 Losant IoT, Inc
 
 <https://www.losant.com>

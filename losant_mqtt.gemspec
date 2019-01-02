@@ -18,9 +18,9 @@ Gem::Specification.new do |gem|
   gem.required_ruby_version = ">= 2.1"
 
   gem.add_runtime_dependency "eventmachine", "~> 1.2"
-  gem.add_runtime_dependency "mqtt", "~> 0.4"
+  gem.add_runtime_dependency "mqtt", "~> 0.5"
   gem.add_runtime_dependency "events", "~> 0.9"
 
-  gem.add_development_dependency "rspec", "~> 3.5"
+  gem.add_development_dependency "rspec", "~> 3.8"
   gem.add_development_dependency "rake", "~> 12"
 end

@@ -18,7 +18,7 @@ describe LosantMqtt::Device do
 
   it "should correctly connect, send state, and receive a command" do
     EventMachine.run do
-      EventMachine.add_timer(5) { raise RuntimeError.new("Test Timed Out") }
+      EventMachine.add_timer(15) { raise RuntimeError.new("Test Timed Out") }
 
       # associated with app id 57615eebc035bd0100cb964a
       # workflow that takes state reported and sends a command back
@@ -35,7 +35,9 @@ describe LosantMqtt::Device do
         callbacks_called.push(:command)
         expect(cmd["name"]).to eq("triggeredCommand")
         expect(cmd["payload"]).to eq({ "result" => "one-1-false" })
-        d.close
+        EventMachine.add_timer(0.1) do
+          d.close
+        end
       end
 
       device.on(:connect) do |d|
@@ -51,7 +53,9 @@ describe LosantMqtt::Device do
         expect(d.connected?).to eq(false)
         expect(reason).to eq(nil)
         expect(callbacks_called).to eq([:connect, :command])
-        EventMachine.stop_event_loop
+        EventMachine.add_timer(0.1) do
+          EventMachine.stop_event_loop
+        end
       end
 
       device.send_state({ str_attr: "one", num_attr: 1, bool_attr: false })
@@ -60,7 +64,7 @@ describe LosantMqtt::Device do
 
   it "should reconnect when connection is abnormally lost and flag is true" do
     EventMachine.run do
-      EventMachine.add_timer(10) { raise RuntimeError.new("Test Timed Out") }
+      EventMachine.add_timer(15) { raise RuntimeError.new("Test Timed Out") }
 
       # associated with app id 57615eebc035bd0100cb964a
       # workflow that takes state reported and sends a command back
@@ -77,7 +81,9 @@ describe LosantMqtt::Device do
         callbacks_called.push(:command)
         expect(cmd["name"]).to eq("triggeredCommand")
         expect(cmd["payload"]).to eq({ "result" => "two-2-true" })
-        d.close
+        EventMachine.add_timer(0.1) do
+          d.close
+        end
       end
 
       device.on(:connect) do |d|
@@ -106,7 +112,9 @@ describe LosantMqtt::Device do
         else
           expect(reason).to eq(nil)
           expect(callbacks_called).to eq([:connect, :close, :reconnect, :command, :close])
-          EventMachine.stop_event_loop
+          EventMachine.add_timer(0.1) do
+            EventMachine.stop_event_loop
+          end
         end
       end
 
@@ -117,7 +125,7 @@ describe LosantMqtt::Device do
   it "should not reconnect when connection is abnormally lost and flag is false" do
     expect do
       EventMachine.run do
-        EventMachine.add_timer(10) { raise RuntimeError.new("Test Timed Out") }
+        EventMachine.add_timer(15) { raise RuntimeError.new("Test Timed Out") }
 
         # associated with app id 57615eebc035bd0100cb964a
         # workflow that takes state reported and sends a command back
@@ -162,7 +170,7 @@ describe LosantMqtt::Device do
   it "should raise errors on initial bad connect" do
     expect do
       EventMachine.run do
-        EventMachine.add_timer(10) { raise RuntimeError.new("Test Timed Out") }
+        EventMachine.add_timer(15) { raise RuntimeError.new("Test Timed Out") }
         device = LosantMqtt::Device.new(
           device_id: "not a device id",
           key: "not a key",
