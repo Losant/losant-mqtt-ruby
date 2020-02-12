@@ -21,6 +21,6 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency "mqtt", "~> 0.5"
   gem.add_runtime_dependency "events", "~> 0.9"
 
-  gem.add_development_dependency "rspec", "~> 3.8"
-  gem.add_development_dependency "rake", "~> 12"
+  gem.add_development_dependency "rspec", "~> 3.9"
+  gem.add_development_dependency "rake", "~> 13"
 end
