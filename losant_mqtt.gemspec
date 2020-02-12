@@ -22,5 +22,5 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency "events", "~> 0.9"
 
   gem.add_development_dependency "rspec", "~> 3.9"
-  gem.add_development_dependency "rake", "~> 13"
+  gem.add_development_dependency "rake", "~> 12"
 end
