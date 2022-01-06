@@ -231,6 +231,6 @@ Removes an observer from listening for an event on this device.
 
 *****
 
-Copyright (c) 2021 Losant IoT, Inc
+Copyright (c) 2022 Losant IoT, Inc
 
 <https://www.losant.com>
