@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.version       = LosantMqtt::VERSION
   gem.licenses      = ["MIT"]
 
-  gem.required_ruby_version = ">= 2.1"
+  gem.required_ruby_version = ">= 2.1", "< 3"
 
   gem.add_runtime_dependency "eventmachine", "~> 1.2"
   gem.add_runtime_dependency "mqtt", "~> 0.5"

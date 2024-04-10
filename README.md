@@ -6,7 +6,7 @@ The [Losant](https://www.losant.com) MQTT client provides a simple way for
 custom things to communicate with the Losant platform over MQTT. You can
 authenticate as a device, publish device state, and listen for device commands.
 
-This client works with Ruby 2.1 and higher, and it depends on [Event Machine](https://github.com/eventmachine/eventmachine) to provide
+This client works with Ruby 2.x, and it depends on [Event Machine](https://github.com/eventmachine/eventmachine) to provide
 event-driven I/O.
 
 <br/>
