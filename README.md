@@ -1,12 +1,12 @@
 # Losant Ruby MQTT Client
 
-[![Build Status](https://travis-ci.com/Losant/losant-mqtt-ruby.svg?branch=master)](https://travis-ci.com/Losant/losant-mqtt-ruby) [![Gem Version](https://badge.fury.io/rb/losant_mqtt.svg)](https://badge.fury.io/rb/losant_mqtt)
+[![Build Status](https://travis-ci.com/Losant/losant-mqtt-ruby.svg?branch=master)](https://app.travis-ci.com/github/Losant/losant-mqtt-ruby) [![Gem Version](https://badge.fury.io/rb/losant_mqtt.svg)](https://badge.fury.io/rb/losant_mqtt)
 
 The [Losant](https://www.losant.com) MQTT client provides a simple way for
 custom things to communicate with the Losant platform over MQTT. You can
 authenticate as a device, publish device state, and listen for device commands.
 
-This client works with Ruby 2.1 and higher, and it depends on [Event Machine](https://github.com/eventmachine/eventmachine) to provide
+This client works with Ruby 2.x, and it depends on [Event Machine](https://github.com/eventmachine/eventmachine) to provide
 event-driven I/O.
 
 <br/>
@@ -231,6 +231,6 @@ Removes an observer from listening for an event on this device.
 
 *****
 
-Copyright (c) 2023 Losant IoT, Inc
+Copyright (c) 2024 Losant IoT, Inc
 
 <https://www.losant.com>
