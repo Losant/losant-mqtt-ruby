@@ -1,6 +1,6 @@
 # Losant Ruby MQTT Client
 
-[![Build Status](https://travis-ci.com/Losant/losant-mqtt-ruby.svg?branch=master)](https://app.travis-ci.com/github/Losant/losant-mqtt-ruby) [![Gem Version](https://badge.fury.io/rb/losant_mqtt.svg)](https://badge.fury.io/rb/losant_mqtt)
+![Build Status](https://github.com/Losant/losant-mqtt-ruby/actions/workflows/test.yml/badge.svg?branch=master) [![Gem Version](https://badge.fury.io/rb/losant_mqtt.svg)](https://badge.fury.io/rb/losant_mqtt)
 
 The [Losant](https://www.losant.com) MQTT client provides a simple way for
 custom things to communicate with the Losant platform over MQTT. You can
@@ -231,6 +231,6 @@ Removes an observer from listening for an event on this device.
 
 *****
 
-Copyright (c) 2024 Losant IoT, Inc
+Copyright (c) 2025 Losant IoT, Inc
 
 <https://www.losant.com>
